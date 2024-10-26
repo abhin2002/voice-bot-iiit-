@@ -81,8 +81,8 @@ class VoiceAssistantUI extends StatelessWidget {
                 // Display Image with increased size
                 Image.asset(
                   'assets/assistant_icon.png', // Replace with your image path
-                  width: 250, // Increase the width
-                  height: 250, // Increase the height
+                  width: 350, // Increase the width
+                  height: 350, // Increase the height
                 ),
 
                 // Question Text
