@@ -73,8 +73,12 @@ class VoiceAssistantUI extends StatelessWidget {
                     color: Colors.white70,
                   ),
                 ),
-                // Gradient Animated Circle for voice visualization
-                AnimatedGradientCircle(),
+                // Display Image instead of Animated Gradient Circle
+                Image.asset(
+                  'assets/assistant_icon.png', // Replace with your image path
+                  width: 150,
+                  height: 150,
+                ),
                 // Question Text
                 Padding(
                   padding: const EdgeInsets.all(16.0),
@@ -108,66 +112,6 @@ class VoiceAssistantUI extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-// Animated Circle for modern look
-class AnimatedGradientCircle extends StatefulWidget {
-  @override
-  _AnimatedGradientCircleState createState() => _AnimatedGradientCircleState();
-}
-
-class _AnimatedGradientCircleState extends State<AnimatedGradientCircle>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: const Duration(seconds: 3),
-      vsync: this,
-    )..repeat(reverse: true);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        return Container(
-          width: 200,
-          height: 200,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            gradient: RadialGradient(
-              colors: [
-                Colors.purple.withOpacity(_controller.value),
-                Colors.blue.withOpacity(0.7 + _controller.value * 0.3),
-                Colors.pink.withOpacity(0.6),
-                Colors.yellow.withOpacity(0.5),
-              ],
-              stops: [0.0, 0.5, 0.8, 1.0],
-              center: Alignment.center,
-              radius: 1.0 + _controller.value * 0.5,
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.blueAccent.withOpacity(0.3),
-                blurRadius: 25,
-                spreadRadius: 2,
-              )
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 }
 
