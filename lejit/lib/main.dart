@@ -6,6 +6,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,16 +22,18 @@ class MyApp extends StatelessWidget {
 }
 
 class VoiceAssistantUI extends StatelessWidget {
+  const VoiceAssistantUI({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: Icon(Icons.arrow_back, color: Colors.white70, size: 28),
+        leading: const Icon(Icons.arrow_back, color: Colors.white70, size: 28),
         actions: [
           IconButton(
-            icon: Icon(Icons.more_vert, color: Colors.white70, size: 28),
+            icon: const Icon(Icons.more_vert, color: Colors.white70, size: 28),
             onPressed: () {},
           ),
         ],
@@ -40,7 +44,7 @@ class VoiceAssistantUI extends StatelessWidget {
         children: [
           // Background gradient for a modern look
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [Colors.black, Color(0xFF1F1F1F)],
                 begin: Alignment.topCenter,
@@ -74,11 +78,13 @@ class VoiceAssistantUI extends StatelessWidget {
                   ),
                 ),
                 // Display Image instead of Animated Gradient Circle
+                // Display Image with increased size
                 Image.asset(
                   'assets/assistant_icon.png', // Replace with your image path
-                  width: 150,
-                  height: 150,
+                  width: 250, // Increase the width
+                  height: 250, // Increase the height
                 ),
+
                 // Question Text
                 Padding(
                   padding: const EdgeInsets.all(16.0),
@@ -95,13 +101,13 @@ class VoiceAssistantUI extends StatelessWidget {
                 // Floating Voice Input Button
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    shape: CircleBorder(),
-                    padding: EdgeInsets.all(20),
+                    shape: const CircleBorder(),
+                    padding: const EdgeInsets.all(20),
                     backgroundColor: Colors.blueAccent.withOpacity(0.8),
                     shadowColor: Colors.blueAccent.withOpacity(0.5),
                     elevation: 10,
                   ),
-                  child: Icon(Icons.mic, size: 40, color: Colors.white),
+                  child: const Icon(Icons.mic, size: 40, color: Colors.white),
                   onPressed: () {
                     // Voice Input action
                   },
@@ -117,6 +123,8 @@ class VoiceAssistantUI extends StatelessWidget {
 
 // Animated Blob Background for modern look
 class AnimatedBlobBackground extends StatefulWidget {
+  const AnimatedBlobBackground({super.key});
+
   @override
   _AnimatedBlobBackgroundState createState() => _AnimatedBlobBackgroundState();
 }
@@ -129,7 +137,7 @@ class _AnimatedBlobBackgroundState extends State<AnimatedBlobBackground>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: Duration(seconds: 8),
+      duration: const Duration(seconds: 8),
       vsync: this,
     )..repeat(reverse: true);
   }
@@ -173,7 +181,7 @@ class Blob extends StatelessWidget {
   final Color color;
   final double size;
 
-  Blob({required this.color, required this.size});
+  const Blob({super.key, required this.color, required this.size});
 
   @override
   Widget build(BuildContext context) {
