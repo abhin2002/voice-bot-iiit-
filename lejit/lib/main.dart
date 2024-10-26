@@ -6,8 +6,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,8 +19,19 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class VoiceAssistantUI extends StatelessWidget {
-  const VoiceAssistantUI({super.key});
+class VoiceAssistantUI extends StatefulWidget {
+  @override
+  _VoiceAssistantUIState createState() => _VoiceAssistantUIState();
+}
+
+class _VoiceAssistantUIState extends State<VoiceAssistantUI> {
+  bool isListening = false; // Variable to track mic state
+
+  void toggleListening() {
+    setState(() {
+      isListening = !isListening; // Toggle the mic state
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +39,10 @@ class VoiceAssistantUI extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: const Icon(Icons.arrow_back, color: Colors.white70, size: 28),
+        leading: Icon(Icons.arrow_back, color: Colors.white70, size: 28),
         actions: [
           IconButton(
-            icon: const Icon(Icons.more_vert, color: Colors.white70, size: 28),
+            icon: Icon(Icons.more_vert, color: Colors.white70, size: 28),
             onPressed: () {},
           ),
         ],
@@ -44,7 +53,7 @@ class VoiceAssistantUI extends StatelessWidget {
         children: [
           // Background gradient for a modern look
           Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [Colors.black, Color(0xFF1F1F1F)],
                 begin: Alignment.topCenter,
@@ -69,22 +78,20 @@ class VoiceAssistantUI extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                // Listening Prompt
+                // Listening Prompt based on mic state
                 Text(
-                  'Go ahead, I\'m listening...',
+                  isListening ? 'Go ahead, I\'m listening...' : 'Tap to speak',
                   style: GoogleFonts.poppins(
                     fontSize: 18,
                     color: Colors.white70,
                   ),
                 ),
-                // Display Image instead of Animated Gradient Circle
                 // Display Image with increased size
                 Image.asset(
                   'assets/assistant_icon.png', // Replace with your image path
-                  width: 350, // Increase the width
-                  height: 350, // Increase the height
+                  width: 350, // Increased width
+                  height: 350, // Increased height
                 ),
-
                 // Question Text
                 Padding(
                   padding: const EdgeInsets.all(16.0),
@@ -101,16 +108,18 @@ class VoiceAssistantUI extends StatelessWidget {
                 // Floating Voice Input Button
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    shape: const CircleBorder(),
-                    padding: const EdgeInsets.all(20),
-                    backgroundColor: Colors.blueAccent.withOpacity(0.8),
+                    shape: CircleBorder(),
+                    padding: EdgeInsets.all(20),
+                    backgroundColor: isListening
+                        ? Colors.redAccent.withOpacity(0.8) // Red when listening
+                        : Colors.blueAccent.withOpacity(0.8), // Blue when idle
                     shadowColor: Colors.blueAccent.withOpacity(0.5),
                     elevation: 10,
                   ),
-                  child: const Icon(Icons.mic, size: 40, color: Colors.white),
-                  onPressed: () {
-                    // Voice Input action
-                  },
+                  child: Icon(Icons.mic,
+                      size: 40,
+                      color: isListening ? Colors.white70 : Colors.white),
+                  onPressed: toggleListening, // Toggle mic state on press
                 ),
               ],
             ),
@@ -123,8 +132,6 @@ class VoiceAssistantUI extends StatelessWidget {
 
 // Animated Blob Background for modern look
 class AnimatedBlobBackground extends StatefulWidget {
-  const AnimatedBlobBackground({super.key});
-
   @override
   _AnimatedBlobBackgroundState createState() => _AnimatedBlobBackgroundState();
 }
@@ -137,7 +144,7 @@ class _AnimatedBlobBackgroundState extends State<AnimatedBlobBackground>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: const Duration(seconds: 8),
+      duration: Duration(seconds: 8),
       vsync: this,
     )..repeat(reverse: true);
   }
@@ -181,7 +188,7 @@ class Blob extends StatelessWidget {
   final Color color;
   final double size;
 
-  const Blob({super.key, required this.color, required this.size});
+  Blob({required this.color, required this.size});
 
   @override
   Widget build(BuildContext context) {
